@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="inlog.php" method="post">
+            <label for="naam">Username:</label>
+            <input type="text" id="naam" name="naam" required>
+            <label for="wachtwoord">Password:</label>
+            <input type="password" id="wachtwoord" name="wachtwoord" required>
+            <button type="submit">Login</button>
+        </form>
+        <?php
+        if (isset($_GET['error'])) {
+            echo '<p id="error-message" style="color:red;">Invalid username or password</p>';
+        }
+        ?>
+    </div>
+</body>
+</html>
