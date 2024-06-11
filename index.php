@@ -1,3 +1,16 @@
+<?php
+include 'database.php';
+
+function getImagesBySection($conn, $section) {
+    $sql = "SELECT * FROM images WHERE section = '$section'";
+    return $conn->query($sql);
+}
+
+$aboutImages = getImagesBySection($conn, 'about');
+$projectsImages = getImagesBySection($conn, 'projects');
+$contactImages = getImagesBySection($conn, 'contact');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,37 +22,61 @@
 <body>
     <header>
         <div class="logo">
-            <img src="images/logo.png" alt="Logo" class="logo-img">
+            <img src="images/Port-removebg-preview.png" alt="Logo" class="logo-img">
         </div>
         <nav>
             <ul>
-                <li><a href="over_mij.php">About Me</a></li>
-                <li><a href="projecten.php">Projects</a></li>
-                <li><a href="contact.php">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
+            <button class="button"> <li><a href="over_mij.php">Over mij</a></li></button>
+                <button class="button"><li><a href="projecten.php">Projecten</a></li></button>
+                <button class="button"><li><a href="contact.php">Contact</a></li></button>
+                <button class="button"><li><a href="upload.html">upload</a></li></button>
+                <button class="button"><li><a href="login.html">Login</a></li></button>
             </ul>
         </nav>
     </header>
 
     <section id="about">
-        <h1>About Me</h1>
-        <p>Introduce yourself here.</p>
+        <h1>over mij</h1>
+        <p>over mij.</p>
+        <?php
+        if ($aboutImages->num_rows > 0) {
+            while($row = $aboutImages->fetch_assoc()) {
+                echo "<div class='image'><img src='" . $row['image_path'] . "' alt='Image'></div>";
+            }
+        }
+        ?>
     </section>
 
     <section id="projects">
-        <h1>Projects</h1>
-        <p>List your projects here.</p>
+        <h1>Projecten</h1>
+        <p>projecten</p>
+        <?php
+        if ($projectsImages->num_rows > 0) {
+            while($row = $projectsImages->fetch_assoc()) {
+                echo "<div class='image'><img src='" . $row['image_path'] . "' alt='Image'></div>";
+            }
+        }
+        ?>
     </section>
 
     <section id="contact">
         <h1>Contact</h1>
-        <p>Provide contact details or a form here.</p>
+        <p>hallo</p>
+        <?php
+        if ($contactImages->num_rows > 0) {
+            while($row = $contactImages->fetch_assoc()) {
+                echo "<div class='image'><img src='" . $row['image_path'] . "' alt='Image'></div>";
+            }
+        }
+        ?>
     </section>
 
     <footer>
-        <p>&copy; 2024 Your Name</p>
+        <p>&copy; 2024 zyon gressmann</p>
     </footer>
-    
-    <script src="js/script.js"></script>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>
